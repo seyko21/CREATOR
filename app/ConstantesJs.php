@@ -16,5 +16,4 @@ var diccionario = {
         T4: '<?php echo T4; ?>',
         T5: '<?php echo T5; ?>',
         T6: '<?php echo T6; ?>',
-CRAP: '<?php echo CRAP; ?>',
-REG: '<?php echo REG; ?>'
+CRAP: '<?php echo CRAP; ?>'

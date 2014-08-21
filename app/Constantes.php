@@ -8,4 +8,3 @@ define("T6","TAB_OPC");        /*tab modulo OPCION*/
 
 // constantes de prueba
 define("CRAP","CRAP");             /*tab modulo APLICACION*/
-define("REG","REG");             /*tab modulo REGLA*/

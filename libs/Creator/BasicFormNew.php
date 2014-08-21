@@ -1,0 +1,100 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of BasicFormNew
+ *
+ * @author RDCC
+ */
+class BasicFormNew {
+    
+    /*crear archivo base para formulario nuevo*/
+    public static function create($ruta, $opcion, $pre){
+        $capitaleOpcion = Functions::capitalize($opcion);
+        
+        $contenido = '<?php /*
+* ---------------------------------------
+* --------- CREATED BY CREATOR ----------
+* fecha: '.date('d-m-Y H:m:s').' 
+* Descripcion : formNew'.$capitaleOpcion.'.phtml
+* ---------------------------------------
+*/
+
+/*prefijo: '.$pre.' debe ser alias en tabla men_menuprincipal*/
+$grabar = Session::getPermiso("'.$pre.'GR");
+?>
+<form id="<?php echo '.$pre.'; ?>formNew'.$capitaleOpcion.'" name="<?php echo '.$pre.'; ?>formNew'.$capitaleOpcion.'" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"  aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">TITULO DE FORMULARIO</h4>
+            </div>
+            <div class="modal-body smart-form"> 
+                CONTENIDO DEL FORM (utilizar constantes en Labels.php)
+            </div>
+            <div class="modal-footer">
+                <?php if($grabar["permiso"]):?>
+                <button id="<?php echo '.$pre.'; ?>btnGr'.$capitaleOpcion.'" type="submit" class="btn txt-color-white bg-color-blueDark">
+                    <i class="fa fa-save"></i> <?php echo $grabar["accion"]; ?>
+                </button>
+                <?php endif; ?>
+                <button type="button" class="btn btn-default xClose">
+                    <i class="fa fa-ban"></i> Cerrar
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</form>
+<!-- si no tiene permiso se anula submit desde cualquier input -->
+<?php if(!$grabar["permiso"]): ?>
+<script>
+    simpleScript.noSubmit("#<?php echo '.$pre.'; ?>formNew'.$capitaleOpcion.'");
+</script>
+<?php endif; ?>
+<script>
+/*configurar validacion de formulario -- este codigo es de ejemplo*/
+$("#<?php echo '.$pre.'; ?>formNew'.$capitaleOpcion.'").validate({
+    // Rules for form validation
+    rules : {
+        <?php echo '.$pre.'; ?>txt_campo : {
+            required : true,
+            regular: true,
+            minlength: 3
+        }
+    },
+
+    // Msn para validacion -- es opcional -- se puede eliminar, validate tiene los msn configurados por defecto
+    messages : {
+        <?php echo '.$pre.'; ?>txt_campo : {
+            required : "Campo requerido",
+            regular: "No se permite caracteres inválidos"
+        }
+    },
+
+    // No cambie el código de abajo
+    errorPlacement : function(error, element) {
+        error.insertAfter(element.parent());
+    },
+
+    submitHandler: function(){
+        '.$opcion.'.postNew'.$capitaleOpcion.'();
+    }   
+});
+</script>';
+        
+        $r = $ruta['app'].'/modules/'.$ruta['modulo'].'/views/';
+        
+        $fp=fopen($r.'formNew'.$capitaleOpcion.'.phtml',"x");
+        fwrite($fp,$contenido);
+        fclose($fp) ;
+    }
+    
+}

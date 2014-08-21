@@ -1,0 +1,121 @@
+<table id="<?php echo T6; ?>gridColumns" class="table table-bordered table-striped table-condensed table-hover smart-form has-tickbox">
+    <thead>
+        <tr>
+            <th style="width: 15%" class="center">Columna</th>
+            <th style="width: 2%" class="center">Usar</th>
+            <th style="width: 2%" class="center">Key</th>
+            <th style="width: 8%" class="center">Id</th>
+            <th style="width: 8%" class="center">Name</th>
+            <th style="width: 20%" class="center">Etiqueta</th>
+            <th style="width: 22%" colspan="2" class="center">Ayuda</th>
+            <th style="width: 8%" class="center">Tipo</th>
+            <th style="width: 3%" class="center">Data</th>
+            <th style="width: 3%" class="center">Validar</th>
+        </tr> 
+    </thead>
+    <tbody id="<?php echo T6; ?>cont-columdas">
+
+        <?php
+        $cols = opcionController::getColumnsDB();
+        $key = 0;
+        foreach ($cols as $c):
+            $key++;
+            ?>
+            <tr>
+                <td style="height: 32px"><?php echo $c['COLUMN_NAME']; ?></td>
+                <td class="center">
+                    <!--USAR-->
+                    <label class="checkbox">
+                        <input onclick="opcionScript.enableCols(this,<?php echo $key; ?>);" type="checkbox" id="<?php echo T6.$key; ?>chk_usar" name="<?php echo T6.$key; ?>chk_usar" value="<?php echo $c['COLUMN_NAME']; ?>"><i></i>
+                    </label>
+                </td>
+                <td class="center">
+                    <!--KEY-->
+                    <label class="checkbox state-disabled">
+                        <input type="checkbox" id="<?php echo T6.$key; ?>chk_key" name="<?php echo T6.$key; ?>chk_key" disabled><i></i>
+                    </label>
+                </td>
+                <td>
+                    <!--ID-->
+                    <label class="input">
+                        <input class="form-control" type="text" id="<?php echo T6.$key; ?>txt_id" name="<?php echo T6.$key; ?>txt_id" disabled>
+                    </label>
+                </td>
+                <td>
+                    <!--NAME-->
+                    <label class="input">
+                        <input class="form-control" type="text" id="<?php echo T6.$key; ?>txt_name" name="<?php echo T6.$key; ?>txt_name" disabled>
+                    </label>
+                </td>
+                <td>
+                    <!--ETIQUETA-->
+                    <label class="input">
+                        <input class="form-control" type="text" id="<?php echo T6.$key; ?>txt_etiqueta" name="<?php echo T6.$key; ?>txt_etiqueta" disabled>
+                    </label>
+                </td>
+                <td>
+                    <!--AYUDA?-->
+                    <label class="checkbox state-disabled">
+                        <input type="checkbox" id="<?php echo T6.$key; ?>chk_ayuda" name="<?php echo T6.$key; ?>chk_ayuda" disabled onclick="opcionScript.enableAyuda(this,<?php echo $key; ?>);"><i></i>
+                    </label>
+                </td>
+                <td>
+                    <!--AYUDA-->
+                    <label class="input">
+                        <input class="form-control" type="text" id="<?php echo T6.$key; ?>txt_ayuda" name="<?php echo T6.$key; ?>txt_ayuda" disabled>
+                    </label>
+                </td>
+                <td>
+                    <!--TIPO-->
+                    <label class="select">
+                        <select class="form-control" id="<?php echo T6.$key; ?>lst_tipo" name="<?php echo T6.$key; ?>lst_tipo" disabled onchange="opcionScript.enableCols2(this,<?php echo $key; ?>);">
+                            <option value="">--------</option>
+                            <option value="text">text</option>
+                            <option value="textarea">textarea</option>
+                            <option value="select">select</option>
+                            <option value="radio">radio</option>
+                            <option value="checkbox">checkbox</option>
+                        </select><i></i>
+                    </label>
+                </td>
+                <td>
+                    <!--DEPENDIENTE-->
+                    <label class="select">
+                        <select class="form-control" id="<?php echo T6.$key; ?>lst_tipodata" name="<?php echo T6.$key; ?>lst_tipodata" disabled onchange="opcion.getFormData(this,'<?php echo T6.$key; ?>');">
+                            <option value="">--------</option>
+                            <option value="F">Fijo</option>
+                            <option value="D">Dinámico</option>
+                        </select><i></i>
+                    </label>
+                </td>
+                <td>
+                    <!--VALIDAR-->
+                    <label class="checkbox state-disabled">
+                        <input type="checkbox" id="<?php echo T6.$key; ?>chk_validar" name="<?php echo T6.$key; ?>chk_validar" disabled><i></i>
+                    </label>
+                </td>
+            </tr>
+            <?php
+        endforeach;
+        ?>
+    </tbody>
+</table>
+<script>
+    (function() {
+        var mySt = new scrollTable(''+diccionario.tabs.T6+'gridColumns',{
+            fixedCols : 1,
+            colWidths : [170, 35, 35, 100, 100, 150, 35, 170, 110, 90, 50]
+        });
+    })();
+    /*scrollTable duplica los elementos, tengo q eliminarlos, para poder manipularlos*/
+    $('.sFHeader').find('table').removeAttr('id');
+    $('.sHeaderInner').find('table').removeAttr('id');
+    $('.sFDataInner').find('table').removeAttr('id');
+    $('.sFDataInner').find('table').find('tbody tr').find("td:first").nextAll().remove();
+    
+   
+//simpleScript.removeAttr.click({
+//    container: '#'+diccionario.tabs.T6+'cont-columns', //widget del datagrid
+//    typeElement: 'input'
+//});
+</script>

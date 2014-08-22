@@ -51,15 +51,15 @@ class moduloController extends Controller{
                 $sOutput .= '"<div class=\"btn-group\">';
                 
                
-                if($crearopcion['permiso'] == 1){
-                    $sOutput .= '<button type=\"button\" class=\"btn btn-primary btn-xs\" title=\"'.$crearopcion['accion'].'\" onclick=\"opcion.main(this,\''.$encryptReg.'-'.$aRow['modulo'].'\')\">';
-                    $sOutput .= '    <i class=\"fa fa-plus-circle fa-lg\"></i>';
+                if($crearopcion['permiso']){
+                    $sOutput .= '<button type=\"button\" class=\"'.$crearopcion['theme'].'\" title=\"'.$crearopcion['accion'].'\" onclick=\"opcion.main(this,\''.$encryptReg.'-'.$aRow['modulo'].'\')\">';
+                    $sOutput .= '    <i class=\"'.$crearopcion['icono'].'\"></i>';
                     $sOutput .= '</button>';
                 }
                 
-                if($veropcion['permiso'] == 1){
-                    $sOutput .= '<button type=\"button\" class=\"btn btn-primary btn-xs\" title=\"'.$veropcion['accion'].'\" onclick=\"opcion.getGridOpcion(\''.$encryptReg.'\')\">';
-                    $sOutput .= '    <i class=\"fa fa-search-plus fa-lg\"></i>';
+                if($veropcion['permiso']){
+                    $sOutput .= '<button type=\"button\" class=\"'.$veropcion['theme'].'\" title=\"'.$veropcion['accion'].'\" onclick=\"opcion.getGridOpcion(\''.$encryptReg.'\')\">';
+                    $sOutput .= '    <i class=\"'.$veropcion['icono'].'\"></i>';
                     $sOutput .= '</button>';
                 }
                 

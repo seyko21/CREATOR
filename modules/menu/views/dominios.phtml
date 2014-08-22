@@ -6,6 +6,7 @@
  * Descripcion : 
  */
 $eliminar = Session::getPermiso('MNUDE');
+$editar   = Session::getPermiso('MNUED');
 
 $dataDom = configurarMenuController::getDominios();
 ?>
@@ -24,12 +25,14 @@ $dataDom = configurarMenuController::getDominios();
                     <button class="btn btn-xs btn-primary" title="Ver módulos" onclick="moverLiDominios('<?php echo AesCtr::en($value['id_dominio']); ?>','<?php echo $value['dominio']; ?>');">
                         <i class="fa fa-search-plus fa-lg"></i>
                     </button>
-                    <button class="btn btn-xs btn-primary" title="Editar" onclick="configurarMenu.getEditarDominio('<?php echo AesCtr::en($value['id_dominio']); ?>');">
-                        <i class="fa fa-edit fa-lg"></i>
+                    <?php if ($editar['permiso']): ?>
+                    <button class="<?php echo $editar['theme']; ?>" title="<?php echo $editar['accion']; ?>" onclick="configurarMenu.getEditarDominio('<?php echo AesCtr::en($value['id_dominio']); ?>');">
+                        <i class="<?php echo $editar['icono']; ?>"></i>
                     </button>
+                    <?php endif; ?>
                     <?php if ($eliminar['permiso']): ?>
-                        <button class="btn btn-xs btn-danger" title="<?php echo $eliminar['accion']; ?>" onclick="configurarMenu.postDeleteDominio('<?php echo AesCtr::en($value['id_dominio']); ?>');">
-                            <i class="fa fa-ban fa-lg"></i>
+                        <button class="<?php echo $eliminar['theme']; ?>" title="<?php echo $eliminar['accion']; ?>" onclick="configurarMenu.postDeleteDominio('<?php echo AesCtr::en($value['id_dominio']); ?>');">
+                            <i class="<?php echo $eliminar['icono']; ?>"></i>
                         </button>
                     <?php endif; ?>
                 </div>

@@ -13,6 +13,8 @@ define('CK_ACTIVO','Activo');
 define('BTN_NUEVO','Nuevo');
 define('BTN_DELETE','Eliminar');
 define('BTN_CLOSE','Cerrar');
+define('ICON_CLOSE','fa fa-ban');
+define('THEME_CLOSE','btn btn-default xClose');
 define('BTN_ACEP','Aceptar');
 define('LABEL_DESC','Iingresar descripción');
 
@@ -58,6 +60,7 @@ define('M_TITLTE_USU','Usuarios');
     define('LABEL_3','E-mail');
     define('LABEL_4','Ingrese clave.');
     define('LABEL_5','Ingrese empleado.');
+    define('LABEL_USU1','Editar Usuario');
     
     /*formulario buscar empleado*/
     define('LABEL_1','Buscar Empleado');

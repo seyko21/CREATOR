@@ -25,7 +25,7 @@ class BasicIndex {
 * Descripcion : index'.$capitaleOpcion.'.phtml
 * ---------------------------------------
 */
-$grabar   = Session::getPermiso("'.$pre.'GR");
+$nuevo    = Session::getPermiso("'.$pre.'NEW");
 $eliminar = Session::getPermiso("'.$pre.'DE");
 echo Functions::widgetOpen(array(
         "id"=>'.$pre.',
@@ -38,15 +38,15 @@ echo Functions::widgetOpen(array(
         <div class="dt-top-row">
             <div class="DTTT btn-group">
                 <!-- verificar permisos -->
-                <?php if($grabar["permiso"]): ?>
-                <button id="<?php echo '.$pre.'; ?>btnNew'.$capitaleOpcion.'" type="button" onclick="'.$opcion.'.getFormNew'.$capitaleOpcion.'(this);" class="btn txt-color-white bg-color-blueDark">
-                    <i class="fa fa-file-o"></i> <?php echo BTN_NUEVO; ?>
+                <?php if($nuevo["permiso"]): ?>
+                <button id="<?php echo '.$pre.'; ?>btnNew'.$capitaleOpcion.'" type="button" onclick="'.$opcion.'.getFormNew'.$capitaleOpcion.'(this);" class="<?php echo $nuevo["theme"]; ?>">
+                    <i class="<?php echo $nuevo["icono"]; ?>"></i> <?php echo $nuevo["accion"]; ?>
                 </button>
                 <?php endif; ?>
                 <!-- verificar permisos -->
                 <?php if($eliminar["permiso"]): ?>
-                <button id="<?php echo '.$pre.'; ?>btnDelete'.$capitaleOpcion.'" type="button" onclick="'.$opcion.'.postDelete'.$capitaleOpcion.'All(this);" class="btn txt-color-white bg-color-blueDark">
-                    <i class="fa fa-trash-o"></i> <?php echo BTN_DELETE; ?>
+                <button id="<?php echo '.$pre.'; ?>btnDelete'.$capitaleOpcion.'" type="button" onclick="'.$opcion.'.postDelete'.$capitaleOpcion.'All(this);" class="<?php echo $eliminar["theme"]; ?>">
+                    <i class="<?php echo $eliminar["icono"]; ?>"></i> <?php echo $eliminar["accion"]; ?>
                 </button>
                 <?php endif; ?>
             </div>

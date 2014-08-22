@@ -20,7 +20,6 @@ class BasicModel {
 
 class '.$opcion.'Model extends Model{
 
-    private $_flag;
     private $_id'.$capitaleOpcion.';
     private $_usuario;
     
@@ -36,7 +35,6 @@ class '.$opcion.'Model extends Model{
     }
     
     private function _set(){
-        $this->_flag                    = Formulario::getParam("_flag");
         $this->_id'.$capitaleOpcion.'   = Aes::de(Formulario::getParam("_id'.$capitaleOpcion.'"));    /*se decifra*/
         $this->_usuario                 = Session::get("sys_idUsuario");
         

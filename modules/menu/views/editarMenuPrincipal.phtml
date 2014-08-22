@@ -5,7 +5,7 @@
  * Autor       : ..... .....
  * Descripcion : 
  */
-$editar = Session::getPermiso('MNUED');
+$editar = Session::getPermiso('MNUACT');
 
 $data = configurarMenuController::getMenuPrincipal($this->_idMenuPrincipal);
 ?>
@@ -77,12 +77,12 @@ $data = configurarMenuController::getMenuPrincipal($this->_idMenuPrincipal);
             </div>
             <div class="modal-footer">
                 <?php if($editar['permiso']):?>
-                <button id="<?php echo T3; ?>btnEditarMenuPri" type="submit" class="btn txt-color-white bg-color-blueDark">
-                    <i class="fa fa-save"></i> <?php echo $editar['accion']; ?>
+                <button id="<?php echo T3; ?>btnEditarMenuPri" type="submit" class="<?php echo $editar['theme']; ?>">
+                    <i class="<?php echo $editar['icono']; ?>"></i> <?php echo $editar['accion']; ?>
                 </button>
                 <?php endif; ?>
-                <button type="button" class="btn btn-default xClose" onclick="configurarMenu.resetKeyMenuPrincipal();">
-                    <i class="fa fa-ban"></i> Cerrar
+                <button type="button" class="<?php echo THEME_CLOSE; ?>" onclick="configurarMenu.resetKeyMenuPrincipal();">
+                    <i class="<?php echo ICON_CLOSE; ?>"></i> <?php echo BTN_CLOSE; ?>
                 </button>
             </div>
         </div><!-- /.modal-content -->

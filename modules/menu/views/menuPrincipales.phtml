@@ -6,6 +6,7 @@
  * Descripcion : 
  */
 $eliminar = Session::getPermiso('MNUDE');
+$editar   = Session::getPermiso('MNUED');
 
 $data = configurarMenuController::getMenuPrincipales();
 ?>
@@ -23,15 +24,14 @@ $data = configurarMenuController::getMenuPrincipales();
             <a href="javascript:;" rel="popover-hover" data-placement="top" data-original-title="<?php echo $value['menuprincipal']; ?>" data-content="<div><b>Alias:</b> <?php echo $value['alias']; ?></div><div><b>URL:</b> <?php echo $value['url']; ?></div><div><b>Orden:</b> <?php echo $value['orden']; ?></div>" data-html="true">
                 <span style="<?php echo $inactivo; ?>"><?php echo $value['menuprincipal']; ?></span>
                 <div class="pull-right btn-group" style="margin-top: -4px;">
-                    <button class="btn btn-xs btn-primary" title="Ver módulos" onclick="moverLiMenuPrincipal('<?php echo AesCtr::en($value['id_menuprincipal']); ?>','<?php echo $value['menuprincipal']; ?>');">
-                        <i class="fa fa-search-plus fa-lg"></i>
+                    <?php if ($editar['permiso']): ?>
+                    <button class="<?php echo $editar['theme']; ?>" title="<?php echo $editar['accion']; ?>" onclick="configurarMenu.getEditarMenuPrincipal('<?php echo AesCtr::en($value['id_menuprincipal']); ?>');">
+                        <i class="<?php echo $editar['icono']; ?>"></i>
                     </button>
-                    <button class="btn btn-xs btn-primary" title="Editar" onclick="configurarMenu.getEditarMenuPrincipal('<?php echo AesCtr::en($value['id_menuprincipal']); ?>');">
-                        <i class="fa fa-edit fa-lg"></i>
-                    </button>
+                    <?php endif; ?>
                     <?php if ($eliminar['permiso']): ?>
-                        <button class="btn btn-xs btn-danger" title="<?php echo $eliminar['accion']; ?>" onclick="configurarMenu.postDeleteMenuPrincipal('<?php echo AesCtr::en($value['id_menuprincipal']); ?>');">
-                            <i class="fa fa-ban fa-lg"></i>
+                        <button class="<?php echo $eliminar['theme']; ?>" title="<?php echo $eliminar['accion']; ?>" onclick="configurarMenu.postDeleteMenuPrincipal('<?php echo AesCtr::en($value['id_menuprincipal']); ?>');">
+                            <i class="<?php echo $eliminar['icono']; ?>"></i>
                         </button>
                     <?php endif; ?>
                 </div>

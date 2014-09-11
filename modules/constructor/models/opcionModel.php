@@ -18,7 +18,7 @@ class opcionModel extends ModelORM{
     public  $_prefijo;
     public  $_tipo;
     private $_database;
-    private $_column;
+    private $_tabla;
     private $_usuario;
     
     /*para el grid*/
@@ -39,7 +39,7 @@ class opcionModel extends ModelORM{
         $this->_prefijo     = $this->post(T6.'txt_prefijo');
         $this->_tipo        = $this->post(T6.'rd_tipo');  
         $this->_database          = $this->post('_db'); 
-        $this->_column          = $this->post('_column'); 
+        $this->_tabla          = $this->post('_tabla'); 
         $this->_usuario     = Session::get('sys_idUsuario');
         
         $this->_iDisplayStart  =   $this->post('iDisplayStart'); 
@@ -108,12 +108,12 @@ class opcionModel extends ModelORM{
     }
     
     public function getColumnsDB(){
-        $query = "call sp_confUsuarioConsultas(:flag,:db,:column);";
+        $query = "call sp_confUsuarioConsultas(:flag,:db,:tabla);";
         
         $parms = array(
             ':flag'=>  6,
             ':db'=>  $this->_database,
-            ':column'=>  $this->_column
+            ':tabla'=>  $this->_tabla
         );
         $data = $this->queryAll($query,$parms);
         return $data;

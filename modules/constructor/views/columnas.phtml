@@ -79,12 +79,12 @@
                     </label>
                 </td>
                 <td>
-                    <!--DEPENDIENTE-->
+                    <!--TIPO DATA-->
                     <label class="select">
-                        <select class="form-control" id="<?php echo T6.$key; ?>lst_tipodata" name="<?php echo T6.$key; ?>lst_tipodata" disabled onchange="opcion.getFormData(this,'<?php echo T6.$key; ?>');">
+                        <select class="form-control" id="<?php echo T6.$key; ?>lst_tipodata" name="<?php echo T6.$key; ?>lst_tipodata" disabled>
                             <option value="">--------</option>
-                            <option value="F">Fijo</option>
-                            <option value="D">Dinámico</option>
+                            <option value="F" onclick="opcion.getFormData('F','<?php echo T6.$key; ?>');">Fijo</option>
+                            <option value="D" onclick="opcion.getFormData('D','<?php echo T6.$key; ?>');">Dinámico</option>
                         </select><i></i>
                     </label>
                 </td>

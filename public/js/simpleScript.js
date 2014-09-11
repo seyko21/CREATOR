@@ -380,6 +380,40 @@ var simpleScript_ = function(){
         $('#li-'+tab).find('span.delete-tab').click();
     };
     
+    this.public.setInput = function (obj,form){
+       for(var i in obj){
+           $('#'+i).val(obj[i]);
+       }
+       this.closeModal(form);
+    };
+    
+    this.public.createCell = function(obj){
+        var t = '';
+        for(var i=0;i<obj.rows;i++){
+           t+= '<tr>'; 
+           for(var j=0;j<obj.cols;j++){
+               t+='<td>&nbsp;</td>';
+           }
+           t+= '</tr>';
+        }
+        return t;
+    };
+    
+    /*recarga grid despues de una accion*/
+    this.public.reloadGrid = function(g){
+        $(g+'_wrapper').find('.dataTables_paginate').find('ul').find('.active').click();
+    };
+    
+    /*cambia la busqueda sencible por el enter*/
+    this.public.enterSearch = function(g,oTable){
+        $(g+'_filter').find('input').unbind();
+        $(g+'_filter').find('input').bind('keyup', function(e) {
+            if(e.keyCode === 13) {
+                oTable.fnFilter(this.value);   
+            }
+        });  
+    };
+    
     return this.public;
     
 };

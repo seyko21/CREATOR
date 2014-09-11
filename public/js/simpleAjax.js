@@ -54,6 +54,7 @@ var simpleAjax_ = function(){
     };
     
     this.public.send = function(obj){ //form, obj, ruta, evt,data, datatype, processImg
+        /*se activa boton loading en boton*/
         if(obj.element !== undefined){
             _private.processObjetoIn(obj.element);
         }
@@ -67,7 +68,7 @@ var simpleAjax_ = function(){
         
         datos += (obj.form !== undefined)?'&'+$(obj.form).serialize():'';
         datos += (obj.flag !== undefined)?'&_flag='+obj.flag.toString():'';
-        datos += (obj.data !== undefined)?obj.data:'';/*&_flag=ALGO&_flag=ALGO*/
+        datos += (obj.data !== undefined)?obj.data:'';/*&_flag=ALGO&_otro=ALGO*/
       
         $.ajax({
             type: "POST",
@@ -83,13 +84,28 @@ var simpleAjax_ = function(){
                 }
             },
             success: function(data){
+                /*validar error del SP*/
+                if(typeData === 'json'){
+                    /*no es un array, servidor devuelve cadena, y el unico q devuelve cadena es el ERROR del SP*/
+                    if(data instanceof Object === false || data.error !== undefined){
+                        var msn = data;
+                        if(data.error !== undefined){
+                            msn = data.error;
+                        }
+                        simpleScript.notify.error({
+                            content: msn
+                        });
+                    }
+                }
                 if(obj.fnCallback !== undefined){//si existe callback
                     var callBback = obj.fnCallback;
                     callBback(data);
                 }
+                /*oculta img cargando de boton*/
                 if(obj.element !== undefined){
                     _private.processObjetoOut(obj.element);//respuesta de servidor finalizada
                 } 
+                /*limpia el formulario*/
                 if(obj.clear !== undefined && obj.clear !== false && parseInt(data.duplicado) !== 1){
                     _private.clear(obj.form);
                 }

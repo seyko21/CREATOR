@@ -6,7 +6,7 @@ var opcion_ = function(){
     
     _private.db = 0;
     
-    _private.columna = 0;
+    _private.tabla = 0;
     
     _private.campo = '';
     
@@ -65,26 +65,27 @@ var opcion_ = function(){
         });
     };
     
-    this.publico.getHtmlColumnas = function(el,col){
-        /*si es otra tabla traera sus campos, si es el mimo no pasa*/
-        if(_private.columna === col){
+    this.publico.getHtmlColumnas = function(el,tab){
+        /*si es otra tabla traera sus campos, si es el mismo no pasa*/
+        if(_private.tabla === tab){
             return false;
         }
         opcionScript.marcaTable(el);
         
-        _private.columna = col;
+        _private.tabla = tab;
         
         simpleAjax.send({
             gifProcess:true,
             dataType: 'html',
             root: _private.config.modulo+'getHtmlColumnas',
-            data: '&_db='+_private.db+'&_column='+_private.columna,
+            data: '&_db='+_private.db+'&_tabla='+_private.tabla,
             fnCallback: function(data){
                 $('#'+diccionario.tabs.T6+'cont-columns').html(data);
             }
         });
     };
     
+    /*formulario para congirurar data de DB*/
     this.publico.getFormData = function(el,f){
         _private.campo = $('#'+f+'chk_usar').val(); //campo q se esta configurando
         
@@ -92,7 +93,7 @@ var opcion_ = function(){
             gifProcess: true,
             dataType: 'html',
             root: _private.config.modulo+'getFormData',
-            data: '&_tipoData='+el.value+'&_element='+$('#'+f+'lst_tipo').val(),
+            data: '&_tipoData='+el+'&_element='+$('#'+f+'lst_tipo').val(),
             fnCallback: function(data){
                 $('#cont-modal').append(data);  /*los formularios con append*/
                 $('#'+diccionario.tabs.T6+'formData').modal('show');

@@ -6,16 +6,18 @@
  * Config.php
  * --------------------------------------
  */
-define('BASE_URL','http://localhost/CREATOR/');#accede a las vistas delusuario
+define('BASE_URL','http://'.$_SERVER['HTTP_HOST'].'/CREATOR/');#accede a las vistas delusuario
 define('DEFAULT_CONTROLLER','index');
 define('DEFAULT_LAYOUT','stardadmin');
 
 define('APP_NAME','CREATOR');
 define('APP_SLOGAN','MY CREACION');
 define('APP_COMPANY','www.creator.pe');
-define('APP_KEY','adABKCDLZEFXGHIJ');
+define('APP_KEY','adABKCDLZEFXGHIJ');               /*llave para AES*/
 define('APP_PASS_KEY','99}dF7EZbnbXOkojf&dzvxd5q#guPbPK1spU75Jm|N79Ii7PK');
 define('APP_EXPORT_FILES',ROOT . 'public' . DS . 'files' . DS);
+define('APP_COD_SADM','001');
+define('APP_COD_ADM','002');
 
 define('DB_ENTORNO','D');  /*D=DESARROLLO, P=PRODUCCION*/
 define('DB_MOTOR','mysql');

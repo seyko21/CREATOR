@@ -23,6 +23,15 @@ class loginController extends Controller{
             /*asignando rol por defecto*/
             $rol = Session::get('sys_roles');
             Session::set('sys_defaultRol',$rol[0]['id_rol']);
+            
+            /*
+             * verifico si es SUPER ADMINISTRADOR (001) o ADMINISTRADOR (002)
+             * esto servira para los reportes, si es super o adm tendra acceso a toda la informacion
+             */
+            Session::set('sys_all','N');
+            if(Session::get('sys_defaultRol') == APP_COD_SADM || Session::get('sys_defaultRol') == APP_COD_ADM){
+                Session::set('sys_all','S');
+            }
         }
         
         echo json_encode($data);

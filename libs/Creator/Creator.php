@@ -10,6 +10,7 @@ require_once 'BasicModel.php';
 require_once 'BasicJs.php';
 require_once 'BasicIndex.php';
 require_once 'BasicFormNew.php';
+require_once 'BasicFormEdit.php';
 
 class Creator{
     
@@ -58,11 +59,12 @@ class Creator{
         
         switch ($tipo){
             case 'B':
-                BasicController::create($ruta,$opcion);
+                BasicController::create($ruta,$opcion,$pre);
                 BasicModel::create($ruta,$opcion);
                 BasicJs::create($ruta,$opcion,$pre);
                 BasicIndex::create($ruta, $opcion, $pre);
                 BasicFormNew::create($ruta, $opcion, $pre);
+                BasicFormEdit::create($ruta, $opcion, $pre);
                 break;
         }
     }

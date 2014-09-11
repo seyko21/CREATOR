@@ -53,8 +53,8 @@ echo Functions::widgetOpen(array(
         </div>
 
     </div>
-    <form id="<?php echo '.$pre.'; ?>formGrid'.$capitaleOpcion.'" name="<?php echo T5; ?>formGrid'.$capitaleOpcion.'">
-        <table id="<?php echo '.$pre.'; ?>grid'.$capitaleOpcion.'" class="table table-striped table-bordered table-hover table-condensed" style="width:100%"></table>
+    <form id="<?php echo '.$pre.'; ?>formGrid'.$capitaleOpcion.'" name="<?php echo '.$pre.'; ?>formGrid'.$capitaleOpcion.'">
+        <table id="<?php echo '.$pre.'; ?>grid'.$capitaleOpcion.'" class="table table-striped table-hover table-condensed" style="width:100%"></table>
     </form>
 <?php echo Functions::widgetClose(); ?>';
         

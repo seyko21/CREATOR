@@ -20,11 +20,13 @@ class BasicModel {
 
 class '.$opcion.'Model extends Model{
 
+    private $_flag;
     private $_id'.$capitaleOpcion.';
+    private $_activo;
     private $_usuario;
     
     /*para el grid*/
-    private $_iDisplayStart;
+    public  $_iDisplayStart;
     private $_iDisplayLength;
     private $_iSortingCols;
     private $_sSearch;
@@ -35,13 +37,40 @@ class '.$opcion.'Model extends Model{
     }
     
     private function _set(){
+        $this->_flag        = Formulario::getParam("_flag");
         $this->_id'.$capitaleOpcion.'   = Aes::de(Formulario::getParam("_id'.$capitaleOpcion.'"));    /*se decifra*/
-        $this->_usuario                 = Session::get("sys_idUsuario");
+        $this->_usuario     = Session::get("sys_idUsuario");
         
-        $this->_iDisplayStart  =   Formulario::getParam("iDisplayStart"); 
-        $this->_iDisplayLength =   Formulario::getParam("iDisplayLength"); 
-        $this->_iSortingCols   =   Formulario::getParam("iSortingCols");
-        $this->_sSearch        =   Formulario::getParam("sSearch");
+        $this->_iDisplayStart  = Formulario::getParam("iDisplayStart"); 
+        $this->_iDisplayLength = Formulario::getParam("iDisplayLength"); 
+        $this->_iSortingCols   = Formulario::getParam("iSortingCols");
+        $this->_sSearch        = Formulario::getParam("sSearch");
+    }
+    
+    /*data para el grid: '.$capitaleOpcion.'*/
+    public function get'.$capitaleOpcion.'(){
+        $aColumns       =   array("","","REGISTRO_A_ORDENAR" ); //para la ordenacion y pintado en html
+        /*
+	 * Ordenando, se verifica por que columna se ordenara
+	 */
+        $sOrder = "";
+        for ( $i=0 ; $i<intval( $this->_iSortingCols ) ; $i++ ){
+                if ( $this->post( "bSortable_".intval($this->post("iSortCol_".$i)) ) == "true" ){
+                        $sOrder .= " ".$aColumns[ intval( $this->post("iSortCol_".$i) ) ]." ".
+                                ($this->post("sSortDir_".$i)==="asc" ? "asc" : "desc") ." ";
+                }
+        }
+        
+        $query = "call sp [NOMBRE_PROCEDIMIENTO_GRID] Grid(:iDisplayStart,:iDisplayLength,:sOrder,:sSearch);";
+        
+        $parms = array(
+            ":iDisplayStart" => $this->_iDisplayStart,
+            ":iDisplayLength" => $this->_iDisplayLength,
+            ":sOrder" => $sOrder,
+            ":sSearch" => $this->_sSearch,
+        );
+        $data = $this->queryAll($query,$parms);
+        return $data;
     }
     
     /*grabar nuevo registro: '.$capitaleOpcion.'*/

@@ -41,6 +41,7 @@ $grabar = Session::getPermiso("'.$pre.'GR");
                 CONTENIDO DEL FORM (utilizar constantes en Labels.php)
             </div>
             <div class="modal-footer">
+                <div class="foot-obligar"></div>
                 <?php if($grabar["permiso"]):?>
                 <button id="<?php echo '.$pre.'; ?>btnGr'.$capitaleOpcion.'" type="submit" class="<?php echo $grabar["theme"]; ?>">
                     <i class="<?php echo $grabar["icono"]; ?>"></i> <?php echo $grabar["accion"]; ?>

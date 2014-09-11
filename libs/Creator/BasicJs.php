@@ -62,7 +62,35 @@ var '.$opcion.'_ = function(){
     };
     
     this.publico.getGrid'.$capitaleOpcion.' = function (){
-        /*------------------LOGICA PARA DATAGRID------------------------*/
+        var oTable = $("#"+diccionario.tabs.'.$pre.'+"grid'.$capitaleOpcion.'").dataTable({
+            bProcessing: true,
+            bServerSide: true,
+            bDestroy: true,
+            sPaginationType: "bootstrap_full", //two_button
+            sServerMethod: "POST",
+            bPaginate: true,
+            iDisplayLength: 10,            
+            aoColumns: [
+                {sTitle: "N°", sWidth: "1%",bSortable: false},
+                {sTitle: "Acciones", sWidth: "8%", sClass: "center", bSortable: false},
+                {sTitle: "CAMPO 1", sWidth: "25%"},
+                {sTitle: "CAMPO 2", sWidth: "25%", bSortable: false},
+                {sTitle: "Estado", sWidth: "10%", sClass: "center", bSortable: false}                
+            ],
+            aaSorting: [[2, "asc"]],
+            sScrollY: "300px",
+            sAjaxSource: _private.config.modulo+"getGrid'.$capitaleOpcion.'",
+            fnDrawCallback: function() {
+                $("#"+diccionario.tabs.'.$pre.'+"grid'.$capitaleOpcion.'_filter").find("input").attr("placeholder","Buscar por '.$capitaleOpcion.'").css("width","250px");
+                simpleScript.enterSearch("#"+diccionario.tabs.'.$pre.'+"grid'.$capitaleOpcion.'",oTable);
+                /*para hacer evento invisible*/
+                simpleScript.removeAttr.click({
+                    container: "#widget_"+diccionario.tabs.'.$pre.',
+                    typeElement: "button"
+                });
+            }
+        });
+        setup_widgets_desktop();
     };
     
     this.publico.getFormNew'.$capitaleOpcion.' = function(btn){
@@ -77,8 +105,95 @@ var '.$opcion.'_ = function(){
         });
     };
     
+    this.publico.getFormEdit'.$capitaleOpcion.' = function(btn,id){
+        _private.id'.$capitaleOpcion.' = id;
+            
+        simpleAjax.send({
+            element: btn,
+            dataType: "html",
+            root: _private.config.modulo + "getFormEdit'.$capitaleOpcion.'",
+            data: "&_id'.$capitaleOpcion.'="+_private.id'.$capitaleOpcion.',
+            fnCallback: function(data){
+                $("#cont-modal").append(data);  /*los formularios con append*/
+                $("#"+diccionario.tabs.'.$pre.'+"formEdit'.$capitaleOpcion.'").modal("show");
+            }
+        });
+    };
+    
     this.publico.postNew'.$capitaleOpcion.' = function(){
-        /*-----LOGICA PARA ENVIO DE FORMULARIO-----*/
+        simpleAjax.send({
+            flag: AQUI FLAG,
+            element: "#"+diccionario.tabs.'.$pre.'+"btnGr'.$capitaleOpcion.'",
+            root: _private.config.modulo + "postNew'.$capitaleOpcion.'",
+            form: "#"+diccionario.tabs.'.$pre.'+"formNew'.$capitaleOpcion.'",
+            clear: true,
+            fnCallback: function(data) {
+                if(!isNaN(data.result) && parseInt(data.result) === 1){
+                    simpleScript.notify.ok({
+                        content: mensajes.MSG_3,
+                        callback: function(){
+                            simpleScript.reloadGrid("#"+diccionario.tabs.'.$pre.'+"grid'.$capitaleOpcion.'");
+                        }
+                    });
+                }else if(!isNaN(data.result) && parseInt(data.result) === 2){
+                    simpleScript.notify.error({
+                        content: "'.$capitaleOpcion.' ya existe."
+                    });
+                }
+            }
+        });
+    };
+    
+    this.publico.postEdit'.$capitaleOpcion.' = function(){
+        simpleAjax.send({
+            flag: AQUI FLAG,
+            element: "#"+diccionario.tabs.'.$pre.'+"btnEd'.$capitaleOpcion.'",
+            root: _private.config.modulo + "postEdit'.$capitaleOpcion.'",
+            form: "#"+diccionario.tabs.'.$pre.'+"formEdit'.$capitaleOpcion.'",
+            data: "&_id'.$capitaleOpcion.'="+_private.id'.$capitaleOpcion.',
+            clear: true,
+            fnCallback: function(data) {
+                if(!isNaN(data.result) && parseInt(data.result) === 1){
+                    simpleScript.notify.ok({
+                        content: mensajes.MSG_10,
+                        callback: function(){
+                            _private.id'.$capitaleOpcion.' = 0;
+                            simpleScript.closeModal("#"+diccionario.tabs.'.$pre.'+"formEdit'.$capitaleOpcion.'");
+                            simpleScript.reloadGrid("#"+diccionario.tabs.'.$pre.'+"grid'.$capitaleOpcion.'");
+                        }
+                    });
+                }else if(!isNaN(data.result) && parseInt(data.result) === 2){
+                    simpleScript.notify.error({
+                        content: "'.$capitaleOpcion.' ya existe."
+                    });
+                }
+            }
+        });
+    };
+    
+    this.publico.postDelete'.$capitaleOpcion.' = function(btn,id){
+        simpleScript.notify.confirm({
+            content: mensajes.MSG_5,
+            callbackSI: function(){
+                simpleAjax.send({
+                    flag: AQUI FLAG,
+                    element: btn,
+                    gifProcess: true,
+                    data: "&_id'.$capitaleOpcion.'="+id,
+                    root: _private.config.modulo + "postDelete'.$capitaleOpcion.'",
+                    fnCallback: function(data) {
+                        if(!isNaN(data.result) && parseInt(data.result) === 1){
+                            simpleScript.notify.ok({
+                                content: mensajes.MSG_6,
+                                callback: function(){
+                                    simpleScript.reloadGrid("#"+diccionario.tabs.'.$pre.'+"grid'.$capitaleOpcion.'");
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
     };
     
     this.publico.postDelete'.$capitaleOpcion.'All = function(btn){

@@ -56,11 +56,39 @@
     max-width: 420px;
 }
 .accionesOpcion{
-    position: absolute;right: -430px;top: -27px;width: 410px;
+    position: absolute;right: -430px;top: -47px;width: 410px;
 }
 .no-access{
     border: 1px red solid;
     background: #F6CED8;
+}
+.obligar{
+    background: url(../img/input_required.png) top right;
+    width: 14px;
+    height: 18px;
+    display: block;
+    position: absolute;
+    right: -20px;
+    top:6px;
+}
+.foot-obligar{
+    background:#F4C6C2 url(../img/input_required.png) 4px 4px no-repeat;
+    width:150px;
+    padding-left:22px;
+    padding-top:5px;
+    height: 30px; 
+    text-align:left;
+    font-weight: bold;
+    font-style: italic;
+    position: absolute;
+    border: #E7ABA5 1px solid;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.foot-obligar:before{
+    content: 'Campos requeridos';
+    color: #990000;
 }
 .si-access{
     border: 1px #00a300 solid;    

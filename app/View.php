@@ -26,6 +26,7 @@ class View{
             '_js' => BASE_URL .'theme/' . DEFAULT_LAYOUT . '/js/'
         );
         
+        //echo Obj::run()->Request->getMetodo();  ---  esta sera la vista
         $rutaVista = ROOT . 'modules' . DS . Obj::run()->Request->getModulo() . DS . 'views' . DS . $vista . '.phtml';
         
         if(is_readable($rutaVista)){

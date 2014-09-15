@@ -47,8 +47,8 @@ var configurarUsuarios_ = function(){
                 {sTitle: "Nombres", sWidth: "25%"},
                 {sTitle: "Roles", sWidth: "20%", bSortable: false},
                 {sTitle: "Estado", sWidth: "8%",  sClass: "center", bSortable: false},
-                {sTitle: "Ultimo acceso", sWidth: "8%", sClass: "center", bSortable: false},
-                {sTitle: "Acciones", sWidth: "15%", sClass: "center", bSortable: false}
+                {sTitle: "Ultimo acceso", sWidth: "12%", sClass: "center", bSortable: false},
+                {sTitle: "Acciones", sWidth: "8%", sClass: "center", bSortable: false}
             ],
             aaSorting: [[1, 'asc']],
             sScrollY: "300px",
@@ -183,6 +183,10 @@ var configurarUsuarios_ = function(){
                 }else if(!isNaN(data.result) && parseInt(data.result) === 2){
                     simpleScript.notify.error({
                         content: 'Empleado ya tiene usuario.'
+                    });
+                }else if(!isNaN(data.result) && parseInt(data.result) === 3){
+                    simpleScript.notify.error({
+                        content: 'E-mail ya tiene usuario.'
                     });
                 }
             }

@@ -186,7 +186,7 @@ var '.$opcion.'_ = function(){
                             simpleScript.notify.ok({
                                 content: mensajes.MSG_6,
                                 callback: function(){
-                                    simpleScript.reloadGrid("#"+diccionario.tabs.'.$pre.'+"grid'.$capitaleOpcion.'");
+                                    simpleScript.reloadGridDelete("#"+diccionario.tabs.'.$pre.'+"grid'.$capitaleOpcion.'");
                                 }
                             });
                         }

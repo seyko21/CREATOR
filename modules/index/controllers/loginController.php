@@ -18,6 +18,7 @@ class loginController extends Controller{
             Session::set('sys_idUsuario', $data['id_usuario']);
             Session::set('sys_usuario', $data['usuario']);
             Session::set('sys_nombreUsuario', $data['primernombre'].' '.$data['apellidopaterno']);
+            Obj::run()->loginModel->postLastLogin();
             /*los roles*/
             Session::set('sys_roles', Obj::run()->loginModel->getRoles());
             /*asignando rol por defecto*/
